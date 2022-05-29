@@ -15,11 +15,11 @@ const int encB = 12;
 
 SimpleEncoder encoder(BTN, encA, encB);
 
-setup() {
+void setup() {
     Serial.begin(9600);
 }
 
-loop() {
+void loop() {
     if (encoder.EUP) {
         Serial.println("Encoder moving up");
     }

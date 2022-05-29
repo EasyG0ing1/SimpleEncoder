@@ -18,11 +18,11 @@ long upperValue = 1000;
 
 SimpleEncoder encoder(BTN, encA, encB, startValue, lowerValue, upperValue);
 
-setup() {
+void setup() {
     Serial.begin(9600);
 }
 
-loop() {
+void loop() {
     if (encoder.MOVING) {
         Serial.println("Current value is: " + String(encoder.VALUE));
     }
