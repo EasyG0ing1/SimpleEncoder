@@ -1,0 +1,36 @@
+#######################################
+# Syntax Coloring Map For SimpleEncoder
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+EUP  KEYWORD1
+EDOWN    KEYWORD1
+MOVING KEYWORD1
+IDLE KEYWORD1
+VALUE    KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+up KEYWORD2
+down KEYWORD2
+buttonPressed    KEYWORD2
+changing   KEYWORD2
+idle KEYWORD2
+getValue  KEYWORD2
+
+######################################
+# Instances (KEYWORD2)
+#######################################
+
+SimpleEncoder	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+VALUE LITERAL1
