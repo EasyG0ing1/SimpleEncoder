@@ -17,14 +17,15 @@
 
 enum STATE{up, down, idle};
 
-#define UP STATE::up;
-#define DOWN STATE::down;
+#define STATE_UP STATE::up;
+#define STATE_DOWN STATE::down;
 #define STATE_IDLE STATE::idle;
-#define EUP up()
-#define EDOWN down()
-#define MOVING changing()
+#define UP up()
+#define DOWN down()
+#define BUTTON buttonPressed()
+#define CHANGING changing()
 #define IDLE idle()
-#define VALUE value()
+#define VALUE getValue()
 
 class SimpleEncoder {
 
@@ -92,7 +93,6 @@ private:
     int encA;
     int encB;
     int BTN;
-    STATE state;
     int encState;
     int lastState;
     long value;
@@ -100,8 +100,7 @@ private:
     long upper;
     bool trackValue = false;
 
-    void getState();
+    STATE getState();
 };
-
 
 #endif //SIMPLEENCODER_SIMPLEENCODER_H

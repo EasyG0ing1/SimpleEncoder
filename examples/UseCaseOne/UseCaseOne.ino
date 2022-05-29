@@ -20,10 +20,13 @@ void setup() {
 }
 
 void loop() {
-    if (encoder.EUP) {
+    if (encoder.UP) {
         Serial.println("Encoder moving up");
     }
-    if (encoder.EDOWN) {
+    if (encoder.DOWN) {
         Serial.println("Encoder moving down");
+    }
+    if (encoder.BUTTON) {
+        Serial.println("Button Pressed");
     }
 }

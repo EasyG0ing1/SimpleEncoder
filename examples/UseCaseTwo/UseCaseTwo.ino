@@ -13,8 +13,8 @@ const int BTN = 10;
 const int encA = 11;
 const int encB = 12;
 long startValue = 0;
-long lowerValue = -1000;
-long upperValue = 1000;
+long lowerValue = -100;
+long upperValue = 100;
 
 SimpleEncoder encoder(BTN, encA, encB, startValue, lowerValue, upperValue);
 
@@ -23,7 +23,7 @@ void setup() {
 }
 
 void loop() {
-    if (encoder.MOVING) {
+    if (encoder.CHANGING) {
         Serial.println("Current value is: " + String(encoder.VALUE));
     }
 }
