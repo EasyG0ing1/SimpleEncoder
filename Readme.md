@@ -20,10 +20,10 @@ in a couple of different ways, all of which need to be in your loop method.
 ```c++
 void loop() {
     if (encoder.UP) {
-        /Code for upward motion
+        //Code for upward motion
     }
     if (encoder.DOWN) {
-        /Code for downward motion
+        //Code for downward motion
     }
 }
 ```
