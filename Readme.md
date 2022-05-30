@@ -85,7 +85,7 @@ Here is a schematic of how your rotary encoder should be connected. The yellow n
 indicate where the encoder should be connected to the Arduino in accordance
 with this library. 
 
-![Schematic](./img/Schematic.png)
+![Schematic](./img/Schematic1.png)
 
 If you're interested, [I made a PCB breakout board](https://oshwlab.com/sims.mike/rotaryencoderbasic) that I've already ordered and tested and it works perfectly.
 
