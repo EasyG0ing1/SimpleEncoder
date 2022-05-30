@@ -81,4 +81,13 @@ VALUE - get the value of the variable being tracked
 
 Make sure that your encoder has 5v connected to it - usually sourced from the Arduino, and that it is also connected to ground or things won't work properly.
 
+Here is a schematic of how your rotary encoder should be connected. The yellow nodes
+indicate where the encoder should be connected to the Arduino in accordance
+with this library. 
+
+![Schematic](./img/Schematic.png)
+
+If you're interested, [I made a PCB breakout board](https://oshwlab.com/sims.mike/rotaryencoderbasic) that I've already ordered and tested and it works perfectly.
+
+
 Enjoy!
