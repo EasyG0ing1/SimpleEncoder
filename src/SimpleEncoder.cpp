@@ -28,11 +28,11 @@ SimpleEncoder::SimpleEncoder(int pinButton, int pinA, int pinB, long trackingVal
     upper = upperLimit;
 }
 
-bool SimpleEncoder::up() {
+bool SimpleEncoder::clockwise() {
     return getState() == STATE_UP;
 }
 
-bool SimpleEncoder::down() {
+bool SimpleEncoder::counterClockwise() {
     return getState() == STATE_DOWN;
 }
 
@@ -43,8 +43,6 @@ bool SimpleEncoder::buttonPressed() {
 long SimpleEncoder::getValue() {
     if (trackValue) {
         getState();
-        if (value >= upper) value = upper;
-        if (value <= lower) value = lower;
         return value;
     }
     return 0;
@@ -58,18 +56,44 @@ bool SimpleEncoder::idle() {
     return getState() == STATE_IDLE;
 }
 
+void SimpleEncoder::setValue(long newValue) {
+    if((newValue >= lower) && (newValue <= upper)) {
+        value = newValue;
+    }
+}
+
+void SimpleEncoder::adjustValue() {
+    if (value > upper)
+        value = upper;
+    else
+        if (value < lower)
+            value = lower;
+}
+
+void SimpleEncoder::setLimits(long lowerLimit, long upperLimit, long newValue) {
+    if ((newValue >= lowerLimit) && (newValue <= upperLimit)) {
+        lower = lowerLimit;
+        upper = upperLimit;
+        value = newValue;
+        trackValue = true;
+    }
+}
+
 STATE SimpleEncoder::getState() {
     encState = digitalRead(encA);
     if (encState != lastState) {
         lastState = encState;
         if (digitalRead(encB) != encState) {
             if (trackValue) value += 1;
+            adjustValue();
             return STATE_UP;
         }
         else {
             if (trackValue) value -= 1;
+            adjustValue();
             return STATE_DOWN;
         }
     }
     return STATE_IDLE;
 }
+

@@ -6,9 +6,10 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-UP  KEYWORD1
-DOWN    KEYWORD1
-BUTTON KEYWORD1
+CLOCKWISE  KEYWORD1
+COUNTERCLOCKWISE    KEYWORD1
+BUTTON_PRESSED KEYWORD1
+BUTTON_PIN KEYWORD1
 CHANGING KEYWORD1
 IDLE KEYWORD1
 VALUE    KEYWORD1
@@ -17,8 +18,8 @@ VALUE    KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-up KEYWORD2
-down KEYWORD2
+clockwise KEYWORD2
+counterClockwise KEYWORD2
 buttonPressed    KEYWORD2
 changing   KEYWORD2
 idle KEYWORD2

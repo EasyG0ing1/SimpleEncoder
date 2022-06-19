@@ -15,14 +15,14 @@
 #include <Arduino.h>
 #pragma once;
 
-enum STATE{up, down, idle};
+enum STATE{clockwise, counterClockwise, idle};
 
-#define STATE_UP STATE::up;
-#define STATE_DOWN STATE::down;
+#define STATE_UP STATE::clockwise;
+#define STATE_DOWN STATE::counterClockwise;
 #define STATE_IDLE STATE::idle;
-#define UP up()
-#define DOWN down()
-#define BUTTON buttonPressed()
+#define CLOCKWISE clockwise()
+#define COUNTERCLOCKWISE counterClockwise()
+#define BUTTON_PRESSED buttonPressed()
 #define CHANGING changing()
 #define IDLE idle()
 #define VALUE getValue()
@@ -57,13 +57,13 @@ public:
      * Returns true if the encoder is moving in an upward direction.
      * @return bool
      */
-    bool up();
+    bool clockwise();
 
     /**
      * Returns true if the encoder is mofing in a downward direction;
      * @return bool
      */
-    bool down();
+    bool counterClockwise();
 
     /**
      * Returns true if the button is being pressed
@@ -72,7 +72,7 @@ public:
     bool buttonPressed();
 
     /**
-     * Returns true if the encoder is moving up or down
+     * Returns true if the encoder is moving clockwise or counter clockwise
      * @return
      */
     bool changing();
@@ -89,6 +89,22 @@ public:
      */
     long getValue();
 
+    /**
+     * Sets the value that you are tracking, must be within the established upper and lower values or it will not be set.
+     * @param value - long newValue
+     */
+    void setValue(long newValue);
+
+    /**
+     * Change the lower and upper value that you want the encoder to track.
+     * The newValue must be within the stated lower and upper limit or nothing
+     * will be changed
+     * @param lowerLimit - long
+     * @param upperLimit - long
+     * @param newValue - long
+     */
+    void setLimits(long lowerLimit, long upperLimit, long newValue);
+
 private:
     int encA;
     int encB;
@@ -101,6 +117,7 @@ private:
     bool trackValue = false;
 
     STATE getState();
+    void adjustValue();
 };
 
 #endif //SIMPLEENCODER_SIMPLEENCODER_H
