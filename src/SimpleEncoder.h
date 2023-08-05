@@ -13,7 +13,7 @@
 #ifndef SIMPLEENCODER_SIMPLEENCODER_H
 #define SIMPLEENCODER_SIMPLEENCODER_H
 #include <Arduino.h>
-#pragma once;
+#pragma once
 
 enum STATE{clockwise, counterClockwise, idle};
 
