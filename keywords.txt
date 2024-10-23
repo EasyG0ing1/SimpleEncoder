@@ -7,23 +7,40 @@
 #######################################
 
 CLOCKWISE  KEYWORD1
+RIGHT KEYWORD1
 COUNTERCLOCKWISE    KEYWORD1
+LEFT KEYWORD1
 BUTTON_PRESSED KEYWORD1
-BUTTON_PIN KEYWORD1
 CHANGING KEYWORD1
 IDLE KEYWORD1
 VALUE    KEYWORD1
+encA    KEYWORD1
+encB    KEYWORD1
+buttonPin   KEYWORD1
+value   KEYWORD1
+lower   KEYWORD1
+upper   KEYWORD1
+valueSteps  KEYWORD1
+trackValue  KEYWORD1
+checkLimits  KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 clockwise KEYWORD2
+right KEYWORD2
 counterClockwise KEYWORD2
+left KEYWORD2
 buttonPressed    KEYWORD2
 changing   KEYWORD2
 idle KEYWORD2
+setLimits  KEYWORD2
+setSteps  KEYWORD2
+setValue  KEYWORD2
 getValue  KEYWORD2
+getState  KEYWORD2
+adjustValue  KEYWORD2
 
 ######################################
 # Instances (KEYWORD2)
@@ -35,4 +52,3 @@ SimpleEncoder	KEYWORD2
 # Constants (LITERAL1)
 #######################################
 
-VALUE LITERAL1
