@@ -120,6 +120,8 @@ Enjoy!
 
 ## Change Log
 
+* 1.2.1 - Bug fixes and streamlined some code.
+
 * 1.2.0 - Added steps and modified the code for efficiency. Added right and left methods to be used instead of 
           clockwise and counterClockwise respectively. Changed all variables related to tracking a value to float
           datatypes to facilitate fractional number tracking.

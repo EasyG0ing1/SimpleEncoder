@@ -5,68 +5,59 @@
 #include <SimpleEncoder.h>
 
 SimpleEncoder::SimpleEncoder(int pinButton, int pinA, int pinB) {
-    encA = pinA;
-    encB = pinB;
-    buttonPin = pinButton;
-    pinMode(encA, INPUT);
-    pinMode(encB, INPUT);
-    pinMode(buttonPin, INPUT_PULLUP);
+    initPins(pinButton, pinA, pinB);
 }
 
 SimpleEncoder::SimpleEncoder(int pinButton, int pinA, int pinB, float trackingValue) {
-    encA = pinA;
-    encB = pinB;
-    buttonPin = pinButton;
+    initPins(pinButton, pinA, pinB);
     value = trackingValue;
-    pinMode(encA, INPUT);
-    pinMode(encB, INPUT);
-    pinMode(buttonPin, INPUT_PULLUP);
+	valueSteps = 1;
+	trackValue = true;
+	checkLimits = false;
 }
 
 SimpleEncoder::SimpleEncoder(int pinButton, int pinA, int pinB, float trackingValue, float lowerLimit, float upperLimit) {
-    encA = pinA;
-    encB = pinB;
-    buttonPin = pinButton;
-    pinMode(encA, INPUT);
-    pinMode(encB, INPUT);
-    pinMode(buttonPin, INPUT_PULLUP);
+    initPins(pinButton, pinA, pinB);
     value = trackingValue;
     lower = lowerLimit;
     upper = upperLimit;
     valueSteps = 1;
-    trackValue = valueSteps != 0;
-    checkLimits = (lower != upper) && (lower != 0.0 && upper != 0);
+    trackValue = true;
+    checkLimits = true;
 }
 
 SimpleEncoder::SimpleEncoder(int pinButton, int pinA, int pinB, float trackingValue, float lowerLimit, float upperLimit, float steps) {
-    encA = pinA;
-    encB = pinB;
-    buttonPin = pinButton;
-    pinMode(encA, INPUT);
-    pinMode(encB, INPUT);
-    pinMode(buttonPin, INPUT_PULLUP);
+    initPins(pinButton, pinA, pinB);
     value = trackingValue;
     lower = lowerLimit;
     upper = upperLimit;
     valueSteps = steps;
-    trackValue = valueSteps != 0;
-    checkLimits = (lower != upper) && (lower != 0.0 && upper != 0);
+    trackValue = true;
+    checkLimits = true;
 }
 
 bool SimpleEncoder::clockwise() {
-    return getState() == STATE_RIGHT;
+    return getState() == SE_STATE_RIGHT;
 }
 
 bool SimpleEncoder::right() {
-    return getState() == STATE_RIGHT;
+    return getState() == SE_STATE_RIGHT;
 }
 
 bool SimpleEncoder::counterClockwise() {
-    return getState() == STATE_LEFT;
+    return getState() == SE_STATE_LEFT;
 }
 
 bool SimpleEncoder::left() {
-    return getState() == STATE_LEFT;
+    return getState() == SE_STATE_LEFT;
+}
+
+bool SimpleEncoder::changing() {
+    return getState() != SE_STATE_IDLE;
+}
+
+bool SimpleEncoder::idle() {
+    return getState() == SE_STATE_IDLE;
 }
 
 bool SimpleEncoder::buttonPressed() {
@@ -74,47 +65,35 @@ bool SimpleEncoder::buttonPressed() {
 }
 
 float SimpleEncoder::getValue() {
-    if (trackValue) {
-        getState();
-        return value;
-    }
-    return 0;
-}
-
-bool SimpleEncoder::changing() {
-    return getState() != STATE_IDLE;
-}
-
-bool SimpleEncoder::idle() {
-    return getState() == STATE_IDLE;
+    getState();
+    return value;
 }
 
 void SimpleEncoder::setValue(float newValue) {
-    if((newValue >= lower) && (newValue <= upper)) {
-        value = newValue;
-    }
+	value = newValue;
 }
 
 void SimpleEncoder::adjustValue() {
-    if (value > upper)
+    if (value > upper) {
         value = upper;
-    else
-        if (value < lower)
-            value = lower;
+	}
+    else if (value < lower) {
+		value = lower;
+	}
 }
 
 void SimpleEncoder::setLimits(float lowerLimit, float upperLimit) {
     lower = lowerLimit;
     upper = upperLimit;
-    checkLimits = (lower != upper) && (lower != 0.0 && upper != 0);
+    checkLimits = true;
 }
 
 void SimpleEncoder::setLimits(float lowerLimit, float upperLimit, float newValue) {
     lower = lowerLimit;
     upper = upperLimit;
     value = newValue;
-    trackValue = valueSteps != 0;
-    checkLimits = (lower != upper) && (lower != 0.0 && upper != 0);
+    trackValue = true;
+    checkLimits = true;
 }
 
 void SimpleEncoder::setSteps(float steps) {
@@ -123,7 +102,7 @@ void SimpleEncoder::setSteps(float steps) {
 }
 
 STATE SimpleEncoder::getState() {
-    static STATE thisState = STATE_IDLE;
+    static STATE thisState = SE_STATE_IDLE;
     static int lastState = 0;
     int encAState = digitalRead(encA);
     int encBState = digitalRead(encB);
@@ -131,17 +110,30 @@ STATE SimpleEncoder::getState() {
         lastState = encAState;
         if (encBState != encAState) {
             if (trackValue) value += valueSteps;
-            thisState = STATE_RIGHT;
+            thisState = SE_STATE_RIGHT;
         }
         else {
             if (trackValue) value -= valueSteps;
-            thisState = STATE_LEFT;;
+            thisState = SE_STATE_LEFT;;
         }
         if (trackValue && checkLimits) adjustValue();
     }
     else {
-        thisState = STATE_IDLE;
+        thisState = SE_STATE_IDLE;
     }
     return thisState;
+}
+
+/**
+ * Private Methods
+ */
+
+void initPins(int pinButton, int pinA, int pinB) {
+    encA = pinA;
+    encB = pinB;
+    buttonPin = pinButton;
+    pinMode(encA, INPUT);
+    pinMode(encB, INPUT);
+    pinMode(buttonPin, INPUT_PULLUP);
 }
 

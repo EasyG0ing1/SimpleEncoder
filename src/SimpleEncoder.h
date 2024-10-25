@@ -15,11 +15,11 @@
 #include <Arduino.h>
 #pragma once
 
-enum STATE{ST_RIGHT, ST_LEFT, ST_IDLE};
+enum STATE{SE_ST_RIGHT, SE_ST_LEFT, SE_ST_IDLE};
 
-#define STATE_RIGHT STATE::ST_RIGHT;
-#define STATE_LEFT STATE::ST_LEFT;
-#define STATE_IDLE STATE::ST_IDLE;
+#define SE_STATE_RIGHT STATE::SE_ST_RIGHT;
+#define SE_STATE_LEFT STATE::SE_ST_LEFT;
+#define SE_STATE_IDLE STATE::SE_ST_IDLE;
 #define CLOCKWISE clockwise()
 #define RIGHT right()
 #define COUNTERCLOCKWISE counterClockwise()
@@ -98,23 +98,23 @@ public:
      */
     bool left();
 
-    /**
+     /**
+      * Returns true if the encoder is moving clockwise or counter clockwise
+      * @return
+      */
+     bool changing();
+
+     /**
+      * Returns true if the encoder is not moving.
+      * @return
+      */
+     bool idle();
+
+     /**
      * Returns true if the button is being pressed
      * @return bool
      */
     bool buttonPressed();
-
-    /**
-     * Returns true if the encoder is moving clockwise or counter clockwise
-     * @return
-     */
-    bool changing();
-
-    /**
-     * Returns true if the encoder is not moving.
-     * @return
-     */
-    bool idle();
 
     /**
      * Returns a long of the current vaklue being tracked.
@@ -171,6 +171,7 @@ private:
 
     STATE getState();
     void adjustValue();
+    void initPins(int pinButton, int pinA, int pinB);
 };
 
 #endif //SIMPLEENCODER_SIMPLEENCODER_H
