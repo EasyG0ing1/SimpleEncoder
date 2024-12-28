@@ -128,7 +128,7 @@ STATE SimpleEncoder::getState() {
  * Private Methods
  */
 
-void initPins(int pinButton, int pinA, int pinB) {
+void SimpleEncoder::initPins(int pinButton, int pinA, int pinB) {
     encA = pinA;
     encB = pinB;
     buttonPin = pinButton;
